@@ -17,7 +17,7 @@ export const getAnimeService = async () => {
 } 
 
 export const getAnimeByIdService = async (id:number) => {
-  const data = animesRepositories.findAnimesById(id);
+  const data = await animesRepositories.findAnimesById(id);
   let response = null;
 
 
