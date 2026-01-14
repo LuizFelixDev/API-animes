@@ -15,3 +15,19 @@ export const getAnimeService = async () => {
   
   return response;
 } 
+
+export const getAnimeByIdService = async (id:number) => {
+  const data = animesRepositories.findAnimesById(id);
+  let response = null;
+
+
+  if(data){
+    response = await ok(data);
+  }else{
+    response = await noContent();
+  }
+  
+  return response;
+
+}
+

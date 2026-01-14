@@ -1,8 +1,9 @@
 import { Router } from "express";
-import { getAnime } from "./controllers/animes-controller";
+import * as animesController from "./controllers/animes-controller";
 
 const router = Router();
 
-router.get("/animes", getAnime);
+router.get("/animes", animesController.getAnimes);
+router.get("/animes/:id", animesController.getAnimeById);
 
 export default router;
