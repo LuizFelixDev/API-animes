@@ -1,13 +1,9 @@
 
-import { Request, Response } from "express";
-import { getAnimesService } from "../../services/animes-services";
-import { ok } from "../../utils/http-helper";
+import { Request, response, Response } from "express";
+import { getAnimeService } from "../services/animes-service";
 
 export const  getAnime = async (req:Request, res:Response) =>{
-  const data = getAnimesService();
-
-  const response = await ok(data);
-
-  res.status(response.statusCode).json(response.body);
+  const HttpResponse = await getAnimeService()
+  res.status(HttpResponse.statusCode).json(HttpResponse.body);
 }
 
