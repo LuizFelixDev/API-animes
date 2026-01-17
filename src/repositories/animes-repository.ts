@@ -63,3 +63,7 @@ export const findAnimesById = async(
 ): Promise<AnimesModel | undefined> => {
     return dataBase.find((anime) => anime.id ===id);
 };
+
+export const insertAnime = async (anime: AnimesModel) => {
+  dataBase.push(anime);
+}

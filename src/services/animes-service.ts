@@ -1,6 +1,7 @@
 import { noContent } from "../../utils/http-helper"; 
+import { AnimesModel } from "../models/animes-model";
 import * as animesRepositories from "../repositories/animes-repository";
-import { ok } from "../utils/http-helper";          
+import * as httpHelper from "../utils/http-helper";          
 
 export const getAnimeService = async () => {
   
@@ -8,9 +9,9 @@ export const getAnimeService = async () => {
   const data = await animesRepositories.findAllAimes();
 
   if(data){
-    response = await ok(data);
+    response = await httpHelper.ok(data);
   }else{
-    response = await noContent();
+    response = await httpHelper.noContent();
   }
   
   return response;
@@ -22,12 +23,26 @@ export const getAnimeByIdService = async (id:number) => {
 
 
   if(data){
-    response = await ok(data);
+    response = await httpHelper.ok(data);
   }else{
-    response = await noContent();
+    response = await httpHelper.noContent();
   }
   
   return response;
 
+};
+
+export const postAnimeService = async (anime:AnimesModel) => {
+  let response = null;
+  if(Object.keys(anime).length !== 0){
+    await animesRepositories.insertAnime(anime);
+    response = httpHelper.created();
+  }else{ 
+    response = httpHelper.badRequest(); 
+  }
+
+  return response;
 }
+
+
 

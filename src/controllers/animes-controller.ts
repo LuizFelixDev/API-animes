@@ -1,5 +1,6 @@
-import { Request, Response } from "express";
+import { Request, response, Response } from "express";
 import * as services from "../services/animes-service";
+import { noContent } from "../utils/http-helper";
 
 export const getAnimes = async (req: Request, res: Response) => {
   const httpResponse = await services.getAnimeService();
@@ -11,3 +12,12 @@ export const getAnimeById = async (req: Request, res: Response) => {
   const httpResponse = await services.getAnimeByIdService(id);
   res.status(httpResponse.statusCode).json(httpResponse.body);
 };
+
+export const postAnime = async (req:Request, res:Response) => {
+  const bodVlaue = req.body;
+  const httpResponse = await services.postAnimeService(bodVlaue);
+
+  if(httpResponse){
+    res.status(httpResponse.statusCode).json(httpResponse.body);
+  }
+}

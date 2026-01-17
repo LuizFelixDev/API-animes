@@ -5,5 +5,6 @@ const router = Router();
 
 router.get("/animes", animesController.getAnimes);
 router.get("/animes/:id", animesController.getAnimeById);
+router.post("/animes", animesController.postAnime);
 
 export default router;
