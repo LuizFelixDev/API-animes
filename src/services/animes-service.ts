@@ -45,4 +45,12 @@ export const postAnimeService = async (anime:AnimesModel) => {
 }
 
 
+export const deleteAnimeService = async (id:number) => {
+  let response = null;
+  const anime = await animesRepositories.deleteAnime(id);
+  response = httpHelper.ok({mensage: "Anime deleted successfully"});
+
+  return response;
+};
+
 

@@ -67,3 +67,11 @@ export const findAnimesById = async(
 export const insertAnime = async (anime: AnimesModel) => {
   dataBase.push(anime);
 }
+
+export const deleteAnime = async (id:number) => {
+  const index = dataBase.findIndex((a) => a.id === id);
+
+  if(index !== -1){
+    dataBase.splice(index, 1);
+  }
+}
