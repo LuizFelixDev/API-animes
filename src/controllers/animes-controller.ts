@@ -32,4 +32,5 @@ export const updateAnime = async (req:Request, res: Response) => {
   const id = parseInt(req.params.id);
   const body = req.body;
   const httpResponse = await services.updateAnimeService(id, body);
+  res.status(httpResponse.statusCode).json(httpResponse.body);
 }
