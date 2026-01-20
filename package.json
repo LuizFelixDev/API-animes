@@ -21,12 +21,14 @@
   },
   "homepage": "https://github.com/LuizFelixDev/API-animes#readme",
   "devDependencies": {
+    "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "tsup": "^8.5.1",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3"
   },
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^5.2.1"
   }
 }
