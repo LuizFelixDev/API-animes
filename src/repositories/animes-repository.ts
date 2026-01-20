@@ -1,87 +1,53 @@
 import { AnimesModel } from "../models/animes-model";
+import fs from "fs/promises";
+import path from "path";
 
-export const dataBase: AnimesModel[] = [
-  {
-    id: 1,
-    title: 'Naruto',
-    genre: ['Ação', 'Aventura', 'Shounen'],
-    episodes: 220,
-    status: 'Finalizado',
-    studio: 'Pierrot',
-    releaseYear: 2002,
-    rating: 8.3
-  },
-  {
-    id: 2,
-    title: 'Naruto Shippuden',
-    genre: ['Ação', 'Aventura', 'Shounen'],
-    episodes: 500,
-    status: 'Finalizado',
-    studio: 'Pierrot',
-    releaseYear: 2007,
-    rating: 8.6
-  },
-  {
-    id: 3,
-    title: 'One Piece',
-    genre: ['Ação', 'Aventura', 'Fantasia'],
-    episodes: 1100,
-    status: 'Em andamento',
-    studio: 'Toei Animation',
-    releaseYear: 1999,
-    rating: 9.0
-  },
-  {
-    id: 4,
-    title: 'Attack on Titan',
-    genre: ['Ação', 'Drama', 'Fantasia'],
-    episodes: 89,
-    status: 'Finalizado',
-    studio: 'MAPPA',
-    releaseYear: 2013,
-    rating: 9.1
-  },
-  {
-    id: 5,
-    title: 'Death Note',
-    genre: ['Mistério', 'Psicológico', 'Suspense'],
-    episodes: 37,
-    status: 'Finalizado',
-    studio: 'Madhouse',
-    releaseYear: 2006,
-    rating: 9.0
-  }
-];
+const filePath = path.join(__dirname, "../data/animes.json");
 
-
-export const findAllAimes = async(): Promise<AnimesModel[]> => {
-    return dataBase; 
+const readData = async (): Promise<AnimesModel[]> => {
+  const data = await fs.readFile(filePath, "utf-8");
+  return JSON.parse(data);
 };
 
-export const findAnimesById = async(
-  id: number
-): Promise<AnimesModel | undefined> => {
-    return dataBase.find((anime) => anime.id ===id);
+const writeData = async (data: AnimesModel[]): Promise<void> => {
+  await fs.writeFile(filePath, JSON.stringify(data, null, 2), "utf-8");
+};
+
+export const findAllAimes = async (): Promise<AnimesModel[]> => {
+  return await readData();
+};
+
+export const findAnimesById = async (id: number): Promise<AnimesModel | undefined> => {
+  const data = await readData();
+  return data.find((anime) => anime.id === id);
 };
 
 export const insertAnime = async (anime: AnimesModel) => {
-  dataBase.push(anime);
-}
+  const data = await readData();
+  data.push(anime);
+  await writeData(data);
+};
 
-export const deleteAnime = async (id:number) => {
-  const index = dataBase.findIndex((a) => a.id === id);
+export const deleteAnime = async (id: number) => {
+  const data = await readData();
+  const index = data.findIndex((a) => a.id === id);
 
-  if(index !== -1){
-    dataBase.splice(index, 1);
+  if (index !== -1) {
+    data.splice(index, 1);
+    await writeData(data);
     return true;
-  }else return false;
-  
-}
+  }
+  return false;
+};
 
 export const findAndModifyAnime = async (id: number, body: AnimesModel) => {
-  const animeIndex = dataBase.findIndex(p => p.id === id);
+  const data = await readData();
+  const index = data.findIndex((p) => p.id === id);
 
-  if (animeIndex !== -1) {
-    dataBase[animeIndex] = { ...dataBase[animeIndex], ...body };
+  if (index !== -1) {
+    data[index] = { ...data[index], ...body };
+    await writeData(data);
+    return data[index];
   }
-}
+  return undefined;
+};
