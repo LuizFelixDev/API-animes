@@ -73,7 +73,9 @@ export const deleteAnime = async (id:number) => {
 
   if(index !== -1){
     dataBase.splice(index, 1);
-  }
+    return true;
+  }else return false;
+  
 }
 
 export const findAndModifyAnime = async (id: number, body: AnimesModel) => {
