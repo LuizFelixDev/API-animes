@@ -75,3 +75,11 @@ export const deleteAnime = async (id:number) => {
     dataBase.splice(index, 1);
   }
 }
+
+export const findAndModifyAnime = async (id: number, body: AnimesModel) => {
+  const animeIndex = dataBase.findIndex(p => p.id === id);
+
+  if (animeIndex !== -1) {
+    dataBase[animeIndex] = { ...dataBase[animeIndex], ...body };
+  }
+}

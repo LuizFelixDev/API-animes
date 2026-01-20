@@ -27,3 +27,9 @@ export const deleteAnime = async (req:Request, res:Response) => {
   const httpResponse = await services.deleteAnimeService(id);
   res.status(httpResponse.statusCode).json(httpResponse.body);
 };
+
+export const updateAnime = async (req:Request, res: Response) => {
+  const id = parseInt(req.params.id);
+  const body = req.body;
+  const httpResponse = await services.updateAnimeService(id, body);
+}

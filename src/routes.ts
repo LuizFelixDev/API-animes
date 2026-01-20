@@ -7,5 +7,6 @@ router.get("/animes", animesController.getAnimes);
 router.get("/animes/:id", animesController.getAnimeById);
 router.post("/animes", animesController.postAnime);
 router.delete("/animes/:id", animesController.deleteAnime);
+router.put("/animes/:id", animesController.updateAnime) ;
 
 export default router;

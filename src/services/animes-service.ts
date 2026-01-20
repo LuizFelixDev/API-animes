@@ -53,4 +53,8 @@ export const deleteAnimeService = async (id:number) => {
   return response;
 };
 
-
+export const updateAnimeService = async (id:number, body: AnimesModel) => {
+  const data = await animesRepositories.findAndModifyAnime(id, body);
+  const response = await httpHelper.ok(data); 
+  return response;
+}
